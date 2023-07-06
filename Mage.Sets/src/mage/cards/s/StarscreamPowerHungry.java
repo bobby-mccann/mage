@@ -1,14 +1,21 @@
 package mage.cards.s;
 
-import java.util.UUID;
 import mage.MageInt;
-import mage.constants.SubType;
-import mage.constants.SuperType;
-import mage.abilities.keyword.MoreThanMeetsTheEyeAbility;
+import mage.abilities.common.CombatDamageDealtToYouTriggeredAbility;
+import mage.abilities.common.DrawCardControllerTriggeredAbility;
+import mage.abilities.condition.common.MonarchIsSourceControllerCondition;
+import mage.abilities.decorator.ConditionalInterveningIfTriggeredAbility;
+import mage.abilities.effects.common.BecomesMonarchSourceEffect;
+import mage.abilities.effects.common.TransformSourceEffect;
 import mage.abilities.keyword.FlyingAbility;
+import mage.abilities.keyword.MoreThanMeetsTheEyeAbility;
 import mage.cards.CardImpl;
 import mage.cards.CardSetInfo;
 import mage.constants.CardType;
+import mage.constants.SubType;
+import mage.constants.SuperType;
+
+import java.util.UUID;
 
 /**
  *
@@ -31,7 +38,18 @@ public final class StarscreamPowerHungry extends CardImpl {
         this.addAbility(FlyingAbility.getInstance());
 
         // Whenever you draw a card, if you're the monarch, target opponent loses 2 life.
+        this.addAbility(new ConditionalInterveningIfTriggeredAbility(
+                new DrawCardControllerTriggeredAbility(
+                        new BecomesMonarchSourceEffect(), false
+                ),
+                MonarchIsSourceControllerCondition.instance,
+                "Whenever you draw a card, if you're the monarch, target opponent loses 2 life."
+        ));
+
         // Whenever one or more creatures deal combat damage to you, convert Starscream.
+        this.addAbility(new CombatDamageDealtToYouTriggeredAbility(
+                new TransformSourceEffect().setText("convert {this}")
+        ));
     }
 
     private StarscreamPowerHungry(final StarscreamPowerHungry card) {

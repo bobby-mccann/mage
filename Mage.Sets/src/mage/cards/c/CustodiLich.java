@@ -5,6 +5,7 @@ import java.util.UUID;
 import mage.MageInt;
 import mage.abilities.Ability;
 import mage.abilities.TriggeredAbilityImpl;
+import mage.abilities.common.BecomesMonarchSourceControllerTriggeredAbility;
 import mage.abilities.common.EntersBattlefieldTriggeredAbility;
 import mage.abilities.effects.Effect;
 import mage.abilities.effects.common.BecomesMonarchSourceEffect;
@@ -37,7 +38,9 @@ public final class CustodiLich extends CardImpl {
         this.addAbility(new EntersBattlefieldTriggeredAbility(new BecomesMonarchSourceEffect(), false));
 
         // Whenever you become the monarch, target player sacrifices a creature.
-        Ability ability = new BecomesMonarchSourceControllerTriggeredAbility(new SacrificeEffect(new FilterControlledCreaturePermanent("creature"), 1, "target player"));
+        Ability ability = new BecomesMonarchSourceControllerTriggeredAbility(
+                new SacrificeEffect(new FilterControlledCreaturePermanent("creature"), 1, "target player")
+        );
         ability.addTarget(new TargetPlayer());
         this.addAbility(ability);
 
@@ -50,32 +53,5 @@ public final class CustodiLich extends CardImpl {
     @Override
     public CustodiLich copy() {
         return new CustodiLich(this);
-    }
-}
-
-class BecomesMonarchSourceControllerTriggeredAbility extends TriggeredAbilityImpl {
-
-    public BecomesMonarchSourceControllerTriggeredAbility(Effect effect) {
-        super(Zone.BATTLEFIELD, effect, false);
-        setTriggerPhrase("Whenever you become the monarch, ");
-    }
-
-    public BecomesMonarchSourceControllerTriggeredAbility(final BecomesMonarchSourceControllerTriggeredAbility ability) {
-        super(ability);
-    }
-
-    @Override
-    public boolean checkEventType(GameEvent event, Game game) {
-        return event.getType() == GameEvent.EventType.BECOMES_MONARCH;
-    }
-
-    @Override
-    public boolean checkTrigger(GameEvent event, Game game) {
-        return isControlledBy(event.getPlayerId());
-    }
-
-    @Override
-    public BecomesMonarchSourceControllerTriggeredAbility copy() {
-        return new BecomesMonarchSourceControllerTriggeredAbility(this);
     }
 }
