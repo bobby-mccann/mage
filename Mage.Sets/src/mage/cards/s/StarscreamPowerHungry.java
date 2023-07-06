@@ -30,6 +30,7 @@ public final class StarscreamPowerHungry extends CardImpl {
         this.subtype.add(SubType.ROBOT);
         this.power = new MageInt(2);
         this.toughness = new MageInt(3);
+        this.secondSideCardClazz = StarscreamSeekerLeader.class;
 
         // More Than Meets the Eye {2}{B}
         this.addAbility(new MoreThanMeetsTheEyeAbility(this, "{2}{B}"));

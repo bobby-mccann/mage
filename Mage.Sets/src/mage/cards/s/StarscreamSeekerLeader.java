@@ -31,6 +31,7 @@ public final class StarscreamSeekerLeader extends CardImpl {
         this.subtype.add(SubType.VEHICLE);
         this.power = new MageInt(2);
         this.toughness = new MageInt(3);
+        this.secondSideCardClazz = StarscreamPowerHungry.class;
 
         // Living metal
         this.addAbility(new LivingMetalAbility());
