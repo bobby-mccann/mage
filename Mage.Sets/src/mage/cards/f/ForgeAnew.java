@@ -6,6 +6,7 @@ import mage.abilities.common.EntersBattlefieldTriggeredAbility;
 import mage.abilities.common.FirstEquipFreeAbility;
 import mage.abilities.common.SimpleStaticAbility;
 import mage.abilities.condition.common.MyTurnCondition;
+import mage.abilities.decorator.ConditionalAsThoughEffect;
 import mage.abilities.decorator.ConditionalContinuousEffect;
 import mage.abilities.effects.common.ReturnFromGraveyardToBattlefieldTargetEffect;
 import mage.abilities.effects.common.continuous.ActivateAbilitiesAnyTimeYouCouldCastInstantEffect;
@@ -29,11 +30,10 @@ public final class ForgeAnew extends CardImpl {
 
         // As long as it's your turn, you may activate equip abilities any time you could cast an instant.
         this.addAbility(new SimpleStaticAbility(
-                new ConditionalContinuousEffect(
+                new ConditionalAsThoughEffect(
                         new ActivateAbilitiesAnyTimeYouCouldCastInstantEffect(EquipAbility.class, "equip abilities"),
-                        MyTurnCondition.instance,
-                        "As long as it's your turn, you may activate equip abilities any time you could cast an instant."
-                )
+                        MyTurnCondition.instance
+                ).setText("As long as it's your turn, you may activate equip abilities any time you could cast an instant.")
         ));
 
         // You may pay {0} rather than pay the equip cost of the first equip ability you activate during each of your turns.
